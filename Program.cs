@@ -6,5 +6,6 @@ class Program
     {
         Console.WriteLine("Hello, World!");
         Console.WriteLine("Card test");
+        Console.WriteLine("pull test");
     }
 }
