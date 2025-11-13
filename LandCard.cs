@@ -4,6 +4,7 @@ namespace MTGDeckBuilder;
 
 public class LandCard : Card
 {
+    // manacount is really weird to parse for, maybe an enum w/ land type?
     private string manaCount { get; set; }
     
     public LandCard(string name, double price, List<Color> colorIdentity, string text, string manaCount) : base(name, price,  0, "", colorIdentity, text){
