@@ -4,15 +4,14 @@ namespace MTGDeckBuilder;
 
 public class LandCard : Card
 {
-    // manacount is really weird to parse for, maybe an enum w/ land type?
-    private string manaCount { get; set; }
+    private List<LandType> landType { get; set; }
     
-    public LandCard(string name, double price, List<Color> colorIdentity, string text, string manaCount) : base(name, price,  0, "", colorIdentity, text){
-        this.manaCount = manaCount;
+    public LandCard(string name, string uuid, double price, List<Color> colorIdentity, string text, List<LandType> landType) : base(name, uuid, price,  0, "", colorIdentity, text){
+        this.landType = landType;
     }
     
     public override string ToString()
     {
-        return base.ToString() + "Taps for " + manaCount + " Mana";
+        return base.ToString() + "Is a " + this.landType.ToString();;
     }
 }
