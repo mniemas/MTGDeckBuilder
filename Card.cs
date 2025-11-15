@@ -3,8 +3,8 @@
 public abstract class Card
 {
     private string name { get; set; }
-    private string uuid { get; set; }
-    private double price { get; set; }
+    public string uuid { get; set; }
+    public double price { get; set; }
     private int convertManaCost { get; set; }
     private string manaCost { get; set; }
     private List<Color> colorIdentity { get; set; }
