@@ -8,6 +8,6 @@ public class NonPermanentCard : NonCreatureCard
     
     public override string ToString()
     {
-        return base.ToString() + "\nNonPermanent";
+        return base.ToString() + "\nNon-Permanent";
     }
 }
