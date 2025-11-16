@@ -12,6 +12,12 @@ public class LandCard : Card
     
     public override string ToString()
     {
-        return base.ToString() + "Is a " + this.landType.ToString();;
+        string result = base.ToString() + "\nIs a ";
+        foreach (LandType lt in landType)
+        {
+            result += lt.ToString() + " ";
+        }
+
+        return result;
     }
 }

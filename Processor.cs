@@ -13,6 +13,7 @@ public class Processor : IProcessor
         this.cardLines = File.ReadAllLines(cardFilePath);
         this.priceLines = File.ReadAllLines(priceFilePath);
     }
+    /*
 
     public IRepository process()
     {
@@ -65,4 +66,5 @@ public class Processor : IProcessor
             return new PermanentCardFactory();
         }
     }
+    */
 }
