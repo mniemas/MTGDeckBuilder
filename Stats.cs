@@ -2,10 +2,10 @@
 
 public struct Stats
 {
-    private int power { get; set; }
-    private int toughness { get; set; }
+    private string power { get; set; }
+    private string toughness { get; set; }
 
-    public Stats(int power, int toughness)
+    public Stats(string power, string toughness)
     {
         this.power = power;
         this.toughness = toughness;
