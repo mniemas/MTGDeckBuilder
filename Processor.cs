@@ -25,7 +25,6 @@ public class Processor : IProcessor
             }
             catch (Exception e)
             {
-                //Console.WriteLine("Dup key");
             }
         }
     }
@@ -42,8 +41,6 @@ public class Processor : IProcessor
         {
             string[] cardParts = Regex.Split(card, ",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
             string type = cardParts[78];
-            // List length: 82
-            // Creature type: index 78
             ICardFactory factory = FindFactory(type);
             Card c = factory.CreateCard(cardParts);
             double price = 0;
@@ -55,34 +52,19 @@ public class Processor : IProcessor
             {
                 price = 0;
             }
-
             c.price = price;
+            
             //rep.add(c);
             cards.Add(c);
+            
+            //testing
             i++;
             Console.WriteLine(cardParts[8]);
             Console.WriteLine("Card " + i + " / " + cardLines.Length + " " + c.colorIdentity.Count);
         }
         //return rep;
-        return cards;
+        return cards;  // temp return until rep implemented
     }
-
-    /*
-    public double findPrice(string uuid)
-    {
-        int i = 0;
-        foreach (string price in priceLines)
-        {
-            string[] priceParts = price.Split(',');
-            if (uuid == priceParts[7])
-            {
-                return double.Parse(priceParts[4]);
-            }
-            //Console.WriteLine("Price " + i + " / " + cardLines.Length);
-        }
-        return 0;
-    }
-    */
     
 
     public ICardFactory FindFactory(string type)
