@@ -14,7 +14,9 @@ public class CreatureCardFactory : ICardFactory
         else {
             foreach (string color in ColorIter)
             {
-                switch (color)
+                char[] trim = [' ', '"'];
+                string c = color.Trim(trim);
+                switch (c)
                 {
                     case "B":
                         ColorIdentity.Add(Color.BLACK);
@@ -33,6 +35,7 @@ public class CreatureCardFactory : ICardFactory
                         break;
 
                 }
+                
             }
         }
         return ColorIdentity;
@@ -40,7 +43,16 @@ public class CreatureCardFactory : ICardFactory
     
     public Card CreateCard(string[] attr)
     {
-        Card ReturnCard = new CreatureCard(attr[52],attr[79],double.Parse(attr[58]),int.Parse(attr[15]),attr[50],ColorParsing(attr[8]),attr[75],attr[58],attr[76],attr[73]);
+        int manaCost = 0;
+        try
+        {
+            manaCost = (int)(double.Parse(attr[51]));
+        }
+        catch (Exception)
+        {
+            manaCost = 0;
+        }
+        Card ReturnCard = new CreatureCard(attr[52],attr[79],0,manaCost,attr[50],ColorParsing(attr[8]),attr[75],attr[58],attr[76],attr[73]);
         return ReturnCard;
     }
 }

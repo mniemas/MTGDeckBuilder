@@ -14,7 +14,9 @@ public class LandCardFactory : ICardFactory
         else {
             foreach (string color in ColorIter)
             {
-                switch (color)
+                char[] trim = [' ', '"'];
+                string c = color.Trim(trim);
+                switch (c)
                 {
                     case "B":
                         ColorIdentity.Add(Color.BLACK);
@@ -77,7 +79,7 @@ public class LandCardFactory : ICardFactory
     public Card CreateCard(string[] attr)
     {
         
-        Card ReturnCard = new LandCard(attr[52],attr[79],double.Parse(attr[58]),ColorParsing(attr[8]),attr[75],LandParsing(attr[73]));
+        Card ReturnCard = new LandCard(attr[52],attr[79],0,ColorParsing(attr[8]),attr[75],LandParsing(attr[73]));
         return ReturnCard;
         
 

@@ -14,7 +14,7 @@ public abstract class FilterSortTemplate
         List<Card> result = new List<Card>();
         foreach (Card card in currList)
         {
-            if (price <= card.price)
+            if (price >= card.price)
             {
                 result.Add(card);
             }
@@ -54,7 +54,7 @@ public abstract class FilterSortTemplate
         List<Card> result = new List<Card>();
         foreach (Card card in currList)
         {
-            if (mana <= card.convertManaCost)
+            if (mana >= card.convertManaCost)
             {
                 result.Add(card);
             }

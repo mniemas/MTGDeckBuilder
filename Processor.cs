@@ -5,19 +5,38 @@ namespace MTGDeckBuilder;
 public class Processor : IProcessor
 {
     private string[] cardLines {get; set;}
-    
     private string[] priceLines {get; set;}
+    private Dictionary<string, double> prices { get; set;}
     
     public Processor(string cardFilePath, string priceFilePath)
     {
         this.cardLines = File.ReadAllLines(cardFilePath);
         this.priceLines = File.ReadAllLines(priceFilePath);
-    }
-    /*
+        this.prices  = new Dictionary<string, double>();
+        int i = 0;
+        foreach (string line in this.priceLines)
+        {
+            
+            string[] priceParts = line.Split(',');
 
-    public IRepository process()
+            try
+            {
+                prices.Add(priceParts[7], double.Parse(priceParts[4]));
+            }
+            catch (Exception e)
+            {
+                //Console.WriteLine("Dup key");
+            }
+        }
+    }
+    
+
+    
+    public List<Card> process()
     {
-        IRepository rep = new Repository();
+        //IRepository rep = new Repository();
+        List<Card> cards = new List<Card>();
+        int i = 0;
         
         foreach (string card in cardLines)
         {
@@ -27,14 +46,31 @@ public class Processor : IProcessor
             // Creature type: index 78
             ICardFactory factory = FindFactory(type);
             Card c = factory.CreateCard(cardParts);
-            c.price = findPrice(c.uuid);
-            rep.add(c);
+            double price = 0;
+            try
+            {
+                price = prices[c.uuid];
+            }
+            catch (Exception e)
+            {
+                price = 0;
+            }
+
+            c.price = price;
+            //rep.add(c);
+            cards.Add(c);
+            i++;
+            Console.WriteLine(cardParts[8]);
+            Console.WriteLine("Card " + i + " / " + cardLines.Length + " " + c.colorIdentity.Count);
         }
-        return rep;
+        //return rep;
+        return cards;
     }
 
+    /*
     public double findPrice(string uuid)
     {
+        int i = 0;
         foreach (string price in priceLines)
         {
             string[] priceParts = price.Split(',');
@@ -42,9 +78,11 @@ public class Processor : IProcessor
             {
                 return double.Parse(priceParts[4]);
             }
+            //Console.WriteLine("Price " + i + " / " + cardLines.Length);
         }
         return 0;
     }
+    */
     
 
     public ICardFactory FindFactory(string type)
@@ -59,12 +97,12 @@ public class Processor : IProcessor
         }
         else if (type.Contains("Instant") || type.Contains("Sorcery"))
         {
-            return new NonPermanentCardFactory();
+            return new NonPermanentFactory();
         }
         else
         {
-            return new PermanentCardFactory();
+            return new NonCreaturePermanentFactory();
         }
     }
-    */
+    
 }
