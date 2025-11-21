@@ -2,16 +2,23 @@
 
 public class Deck
 {
+    private static Deck _instance;
     public List<Card> Cards { get; private set; }
     public double Price { get; set; }
 
-    private Deck(List<Card> cards)
+    private Deck()
     {
-        Cards = cards;
-        foreach (Card card in cards)
+        Cards = new List<Card>();
+        Price = 0;
+    }
+
+    public static Deck GetInstance()
+    {
+        if (_instance == null)
         {
-            Price += card.price;
+            _instance = new Deck();
         }
+        return _instance;
     }
 
     public void Add(Card card)

@@ -10,6 +10,15 @@ public abstract class Card
     public List<Color> colorIdentity { get; set; }
     private string text { get; set; }
 
+    public Card()
+    {
+        this.name = "";
+        this.uuid = "";
+        this.price = 0;
+        this.convertManaCost = 0;
+        this.colorIdentity = new List<Color>();
+        this.text = "";
+    }
     public Card(string name, string uuid, double price, int convertManaCost, string manaCost, List<Color> colorIdentity, string text)
     {
         this.name = name;

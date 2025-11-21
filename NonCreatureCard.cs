@@ -3,7 +3,11 @@
 public abstract class NonCreatureCard : Card
 {
     private string type { get; set; }
-    
+
+    public NonCreatureCard() : base()
+    {
+        type = "";
+    }
     public NonCreatureCard(string name, string uuid, double price, int convertManaCost, string manaCost, List<Color> colorIdentity, string text, string type) : base(name, uuid, price,  convertManaCost, manaCost, colorIdentity, text)
     {
         this.type = type;

@@ -59,8 +59,7 @@ public class Processor : IProcessor
             
             //testing
             i++;
-            Console.WriteLine(cardParts[8]);
-            Console.WriteLine("Card " + i + " / " + cardLines.Length + " " + c.colorIdentity.Count);
+            Console.WriteLine("Processing:... " + (int)(((double)i/cardLines.Length)*100) + "%");
         }
         //return rep;
         return cards;  // temp return until rep implemented

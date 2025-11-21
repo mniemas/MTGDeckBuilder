@@ -2,11 +2,58 @@
 
 public abstract class FilterSortTemplate
 {
-    public List<Card> FilterSort(string filter, List<Card> currList)
+    public List<Card> FilterSort(double price, string colors, int cmc, Card c, List<Card> currList)
     {
-        return sort(currList);
-        // NOT DONE
+        if (price >= 0)
+        {
+            currList = FilterByPrice(price, currList);
+        }
+        if (colors != null)
+        {
+            List<Color> colorList = new List<Color>();
+            if(colors.Contains("CL"))
+            {
+                colorList.Add(Color.COLORLESS);
+            }
+            else
+            {
+                if (colors.Contains("B"))
+                {
+                    colorList.Add(Color.BLACK);
+                }
 
+                if (colors.Contains("U"))
+                {
+                    colorList.Add(Color.BLUE);
+                }
+
+                if (colors.Contains("R"))
+                {
+                    colorList.Add(Color.RED);
+                }
+
+                if (colors.Contains("G"))
+                {
+                    colorList.Add(Color.GREEN);
+                }
+
+                if (colors.Contains("W"))
+                {
+                    colorList.Add(Color.WHITE);
+                }
+            }
+            currList = FilterByColor(colorList, currList);
+        }
+        if (cmc >= 0)
+        {
+            currList = FilterByConvertManaCost(cmc,  currList);
+        }
+        if (c != null)
+        {
+            currList = FilterByCardType(c, currList);
+        }
+        
+        return sort(currList);
     }
 
     
