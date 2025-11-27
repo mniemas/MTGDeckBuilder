@@ -43,6 +43,7 @@ public class LandCardFactory : ICardFactory
     private List<LandType> LandParsing(string Lands)
     {
         List<LandType> LandTypes = new List<LandType>();
+        char[] toTrim = { ' ', '"' };
         string[] iter = Lands.Split(',');
         if (iter.Length < 1)
         {
@@ -51,7 +52,7 @@ public class LandCardFactory : ICardFactory
         else {
             foreach (string land in iter)
             {
-                switch (land)
+                switch (land.Trim(toTrim))
                 {
                     case "Forest":
                         LandTypes.Add(LandType.FOREST);

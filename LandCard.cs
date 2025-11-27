@@ -16,12 +16,16 @@ public class LandCard : Card
     
     public override string ToString()
     {
-        string result = base.ToString() + "\nIs a ";
-        foreach (LandType lt in landType)
+        string result = base.ToString();
+        if (landType.Count > 0)
         {
-            result += lt.ToString() + " ";
+            result += "\nIs a ";
+            foreach (LandType lt in landType)
+            {
+                result += lt + " ";
+            }
+            
         }
-
         return result;
     }
 }
