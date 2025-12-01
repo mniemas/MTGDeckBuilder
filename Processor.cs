@@ -31,10 +31,10 @@ public class Processor : IProcessor
     
 
     
-    public List<Card> process()
+    public Repository process()
     {
-        //IRepository rep = new Repository();
-        List<Card> cards = new List<Card>();
+        Repository rep = new Repository();
+        
         int i = 0;
         
         foreach (string card in cardLines)
@@ -55,14 +55,14 @@ public class Processor : IProcessor
             c.price = price;
             
             //rep.add(c);
-            cards.Add(c);
+            rep.Add(c);
             
             //testing
             i++;
             Console.WriteLine("Processing:... " + (int)(((double)i/cardLines.Length)*100) + "%");
         }
         //return rep;
-        return cards;  // temp return until rep implemented
+        return rep;  // temp return until rep implemented
     }
     
 
