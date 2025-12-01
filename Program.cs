@@ -37,7 +37,7 @@ class Program
         // C:\\Users\\ivyni\\RiderProjects\\MTGDeckBuilder\\prices.txt
         p = new Processor(filePath, pricePath);
         Console.WriteLine("Processing starting");
-        List<Card> cards = p.process();
+        Repository rep = p.process();
         Console.WriteLine("Processing done");
 
         bool active = true;
@@ -50,6 +50,8 @@ class Program
             Console.WriteLine("4. Display deck");
             Console.WriteLine("5. Exit");
             String input = Console.ReadLine();
+            String[] Query;
+            bool[] filts = [false, false, false, false];
             if (input == "1")
             {
                 bool filtering = true;
@@ -76,6 +78,7 @@ class Program
                     String filterIn = Console.ReadLine();
                     if (filterIn == "1")
                     {
+
                         bool cardFilter = true;
                         while (cardFilter)
                         {
@@ -90,6 +93,7 @@ class Program
                                 c = new CreatureCard();
                                 cardFilter = false;
                                 cardFil = "Creature";
+                                filts[0] = true;
 
                             }
                             else if (cardTypeIn == "2")
@@ -97,18 +101,21 @@ class Program
                                 c = new LandCard();
                                 cardFilter = false;
                                 cardFil = "Land";
+                                filts[0] = true;
                             }
                             else if (cardTypeIn == "3")
                             {
                                 c = new PermanentCard();
                                 cardFilter = false;
                                 cardFil = "Non-Creature Permanent";
+                                filts[0] = true;
                             }
                             else if (cardTypeIn == "4")
                             {
                                 c = new NonPermanentCard();
                                 cardFilter = false;
                                 cardFil = "Non-Permanent";
+                                filts[0] = true;
                             }
                             else
                             {
@@ -128,6 +135,7 @@ class Program
                                 cmcFil = cmcIn;
                                 cmc = int.Parse(cmcIn);
                                 cmcFilter = false;
+                                filts[1] = true;
                             }
                             catch (Exception e)
                             {
@@ -148,6 +156,7 @@ class Program
                         Console.WriteLine("     CL: Colorless");
                         Console.WriteLine("Example: RB");
                         colors = Console.ReadLine();
+                        filts[2] = true;
                     }
                     else if (filterIn == "4")
                     {
@@ -161,6 +170,7 @@ class Program
                                 priceFil = priceIn;
                                 price = double.Parse(priceIn);
                                 priceFilter = false;
+                                filts[3] = true;
                             }
                             catch (Exception e)
                             {
@@ -183,6 +193,7 @@ class Program
                     Console.WriteLine("     CMC: " + cmcFil);
                     Console.WriteLine("     Color: " + colors);
                     Console.WriteLine("     Price: $" + priceFil);
+                    Query = [cardFil, cmcFil, colors, priceFil];
                 }
 
                 bool sortingAsk = true;
@@ -210,7 +221,7 @@ class Program
                 }
                 
                 Console.WriteLine("Filtering...");
-                List<Card> filtered = fs.FilterSort(price, colors, cmc, c, cards);
+                List<Card> filtered = rep.Filter(filts,Query,c,fs);
                 printCards(filtered);
                 
             }
@@ -219,7 +230,7 @@ class Program
                 Console.Write("Enter card name to add: ");
                 String name = Console.ReadLine();
                 // REPOSITORY STUFF
-                //deck.Add(rep.getByName(name));
+                deck.Add(rep.Search(name));
             }
             else if (input == "3")
             {
