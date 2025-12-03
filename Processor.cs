@@ -31,16 +31,16 @@ public class Processor : IProcessor
     
 
     
-    public List<Card> process()
+    public IRepository process()
     {
-        //IRepository rep = new Repository();
-        List<Card> cards = new List<Card>();
+        IRepository rep = new Repository();
         int i = 0;
+        int currProgress = 0;
         
         foreach (string card in cardLines)
         {
             string[] cardParts = Regex.Split(card, ",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
-            string type = cardParts[78];
+            string type = cardParts[78].Trim('"');
             ICardFactory factory = FindFactory(type);
             Card c = factory.CreateCard(cardParts);
             double price = 0;
@@ -54,15 +54,11 @@ public class Processor : IProcessor
             }
             c.price = price;
             
-            //rep.add(c);
-            cards.Add(c);
+            rep.Add(c);
             
-            //testing
             i++;
-            Console.WriteLine("Processing:... " + (int)(((double)i/cardLines.Length)*100) + "%");
         }
-        //return rep;
-        return cards;  // temp return until rep implemented
+        return rep;  
     }
     
 

@@ -27,9 +27,9 @@ public class Deck
         Price += card.price;
     }
 
-    public void Remove(Card card)
+    public bool Remove(Card card)
     {
-        Cards.Remove(card);
         Price -=  card.price;
+        return Cards.Remove(card);
     }
 }

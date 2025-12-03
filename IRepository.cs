@@ -3,7 +3,7 @@
 public interface IRepository
 {
     public Card Search(string CardName);
+    public void Add(Card card);
+    public List<Card> GetAll();
 
-    public List<Card> Filter(bool[] Filter, string[] Query, Card CardTypeQuery, FilterSortTemplate SortMethod);
-    
 }

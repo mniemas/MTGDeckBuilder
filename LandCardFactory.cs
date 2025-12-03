@@ -7,35 +7,35 @@ public class LandCardFactory : ICardFactory
     {
         List<Color> ColorIdentity = new List<Color>();
         string[] ColorIter = ColorList.Split(',');
-        if (ColorIter.Length < 1)
+        foreach (string color in ColorIter)
+        {
+            char[] trim = [' ', '"'];
+            string c = color.Trim(trim);
+            switch (c)
+            {
+                case "B":
+                    ColorIdentity.Add(Color.BLACK);
+                    break;
+                case "U":
+                    ColorIdentity.Add(Color.BLUE);
+                    break;
+                case "R":
+                    ColorIdentity.Add(Color.RED);
+                    break;
+                case "W":
+                    ColorIdentity.Add(Color.WHITE);
+                    break;
+                case "G":
+                    ColorIdentity.Add(Color.GREEN);
+                    break;
+
+            }
+                
+        }
+
+        if (ColorIdentity.Count == 0)
         {
             ColorIdentity.Add(Color.COLORLESS);
-        } 
-        else {
-            foreach (string color in ColorIter)
-            {
-                char[] trim = [' ', '"'];
-                string c = color.Trim(trim);
-                switch (c)
-                {
-                    case "B":
-                        ColorIdentity.Add(Color.BLACK);
-                        break;
-                    case "U":
-                        ColorIdentity.Add(Color.BLUE);
-                        break;
-                    case "R":
-                        ColorIdentity.Add(Color.RED);
-                        break;
-                    case "W":
-                        ColorIdentity.Add(Color.WHITE);
-                        break;
-                    case "G":
-                        ColorIdentity.Add(Color.GREEN);
-                        break;
-
-                }
-            }
         }
         return ColorIdentity;
     }
@@ -80,7 +80,7 @@ public class LandCardFactory : ICardFactory
     public Card CreateCard(string[] attr)
     {
         
-        Card ReturnCard = new LandCard(attr[52],attr[79],0,ColorParsing(attr[8]),attr[75],LandParsing(attr[73]));
+        Card ReturnCard = new LandCard(attr[52].Trim('"'),attr[79].Trim('"'),0,ColorParsing(attr[8]),attr[75].Trim('"').Trim('"'),LandParsing(attr[73]));
         return ReturnCard;
         
 

@@ -7,11 +7,6 @@ public class CreatureCardFactory : ICardFactory
     {
         List<Color> ColorIdentity = new List<Color>();
         string[] ColorIter = ColorList.Split(',');
-        if (ColorIter.Length < 1)
-        {
-            ColorIdentity.Add(Color.COLORLESS);
-        } 
-        else {
             foreach (string color in ColorIter)
             {
                 char[] trim = [' ', '"'];
@@ -37,7 +32,11 @@ public class CreatureCardFactory : ICardFactory
                 }
                 
             }
-        }
+
+            if (ColorIdentity.Count == 0)
+            {
+                ColorIdentity.Add(Color.COLORLESS);
+            }
         return ColorIdentity;
     }
     
@@ -52,7 +51,7 @@ public class CreatureCardFactory : ICardFactory
         {
             manaCost = 0;
         }
-        Card ReturnCard = new CreatureCard(attr[52],attr[79],0,manaCost,attr[50],ColorParsing(attr[8]),attr[75],attr[58],attr[76],attr[73]);
+        Card ReturnCard = new CreatureCard(attr[52].Trim('"'),attr[79].Trim('"'),0,manaCost,attr[50],ColorParsing(attr[8]),attr[75].Trim('"').Trim('"'),attr[58],attr[76],attr[73].Trim('"'));
         return ReturnCard;
     }
 }

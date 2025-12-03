@@ -29,16 +29,11 @@ class Program
             }
         }
         
-        // testing
-        //Processor p = new Processor("C:\\\\Users\\\\ivyni\\\\RiderProjects\\\\MTGDeckBuilder\\\\cards.txt",
-        //    "C:\\\\Users\\\\ivyni\\\\RiderProjects\\\\MTGDeckBuilder\\\\prices.txt");
-        
-        // C:\\Users\\ivyni\\RiderProjects\\MTGDeckBuilder\\cards.txt
-        // C:\\Users\\ivyni\\RiderProjects\\MTGDeckBuilder\\prices.txt
+        // C:\Users\ivyni\RiderProjects\MTGDeckBuilder\cards.txt
         p = new Processor(filePath, pricePath);
-        Console.WriteLine("Processing starting");
-        List<Card> cards = p.process();
-        Console.WriteLine("Processing done");
+        Console.WriteLine("Processing starting...");
+        IRepository rep = p.process();
+        Console.WriteLine("Processing done.");
 
         bool active = true;
         while (active)
@@ -210,25 +205,59 @@ class Program
                 }
                 
                 Console.WriteLine("Filtering...");
-                List<Card> filtered = fs.FilterSort(price, colors, cmc, c, cards);
+                List<Card> filtered = fs.FilterSort(price, colors, cmc, c, rep.GetAll());
                 printCards(filtered);
                 
             }
             else if (input == "2")
             {
-                Console.Write("Enter card name to add: ");
-                String name = Console.ReadLine();
-                // REPOSITORY STUFF
-                //deck.Add(rep.getByName(name));
+                bool addAsk = true;
+                while (addAsk)
+                {
+                    Console.Write("Enter card name to add: ");
+                    String name = Console.ReadLine();
+                    Card c = rep.Search(name);
+                    if (c != null)
+                    {
+                        deck.Add(c);
+                        Console.WriteLine("Card added.");
+                        addAsk = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Card not found.");
+                    }
+                    Console.WriteLine("");
+                }
             }
             else if (input == "3")
             {
-                // REPOSITORY STUFF
+                bool removeAsk = true;
+                while (removeAsk)
+                {
+                    Console.Write("Enter card name to add: ");
+                    String name = Console.ReadLine();
+                    Card c = rep.Search(name);
+                    if (c != null && deck.Remove(c))
+                    {
+                        Console.WriteLine("Card removed.");
+                        removeAsk = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Card not found.");
+                    }
+                    Console.WriteLine("");
+                }
             }
+
             else if (input == "4")
             {
+                Console.WriteLine("");
                 Console.WriteLine("Deck:");
                 printCards(deck.Cards);
+                Console.WriteLine("Total price: " + deck.Price);
+                Console.WriteLine("");
             }
             else if (input == "5")
             {
