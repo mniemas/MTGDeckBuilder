@@ -62,7 +62,7 @@ public class Processor : IProcessor
     }
     
 
-    public ICardFactory FindFactory(string type)
+    private ICardFactory FindFactory(string type)
     {
         if (type.Contains("Creature"))
         {

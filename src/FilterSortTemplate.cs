@@ -57,7 +57,7 @@ public abstract class FilterSortTemplate
     }
 
     
-    public List<Card> FilterByPrice(double price, List<Card> currList)
+    private List<Card> FilterByPrice(double price, List<Card> currList)
     {
         List<Card> result = new List<Card>();
         foreach (Card card in currList)
@@ -70,7 +70,7 @@ public abstract class FilterSortTemplate
         return result;
     }
     
-    public List<Card> FilterByColor(List<Color> colors, List<Card> currList)
+    private List<Card> FilterByColor(List<Color> colors, List<Card> currList)
     {
         List<Card> result = new List<Card>();
         bool add = false;
@@ -97,7 +97,7 @@ public abstract class FilterSortTemplate
     }
     
     
-    public List<Card> FilterByConvertManaCost(int mana, List<Card> currList)
+    private List<Card> FilterByConvertManaCost(int mana, List<Card> currList)
     {
         List<Card> result = new List<Card>();
         foreach (Card card in currList)
@@ -110,7 +110,7 @@ public abstract class FilterSortTemplate
         return result;
     }
 
-    public List<Card> FilterByCardType(Card c, List<Card> currList)
+    private List<Card> FilterByCardType(Card c, List<Card> currList)
     {
         List<Card> result = new List<Card>();
         foreach (Card card in currList)
