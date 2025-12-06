@@ -95,8 +95,76 @@ OOP Features
     - Line Numbers: all
     - Reasoning/Purpose: Color enum used to represent Color Identity of cards.
 - Data Structure:
+  - Price Dictionary 
+    - File Name: Processor.cs
+    - Line Numbers: line 9, 17-28, 49
+    - Reasoning/Purpose: The prices of cards are mapped to their UID for easy
+    - access when building cards. This prevents the program from having to
+    - perform another loop to access the correct price by UID.
 - I/O:
+  - User Input and Program Output
+    - File Name: Program.cs
+    - Line Numbers: 
+      - Input: line 17, 19, 47, 71, 82, 120, 145, 153, 190, 218, 239
+      - Output: line 16-282
+    - Reasoning/Purpose: The program takes in input for the file path's of
+    - data to build from, and numbered commands for the user to take actions
+    - and control the filters in the program. The output is used to display
+    - the proper information.
 
 Design Patterns
+- Singleton
+  - Category: Creational
+  - File Name: Deck.cs
+  - Line Numbers: all
+  - Reasoning/Purpose: Only one Deck should be created per run of the program. 
+  - The Singleton pattern ensures this occurs by making the constructor private
+  - and only creating if an instance does not exist.
+- Factory
+  - Category: Creational
+  - File Name: ICardFactory.cs, CreatureCardFactory.cs, 
+  - LandCardFactory.cs, NonCreaturePermanentFactory.cs
+  - Line Numbers: all
+  - Reasoning/Purpose: The Factory method is used to offload the complexity of 
+  - creating cards from the Processor.cs to a dedicated class. This allows the
+  - project to more accurately follow the Single Responsibility principle.
+- Template
+  - Category: Behavioral
+  - File Name: FilterSortTemplate.cs, SortAlphTemplate.cs, SortPriceTemplate.cs
+  - Line Numbers: all
+  - Reasoning/Purpose: The Template method is used to preserve the general logic
+  - steps of filtering, while also allowing for different sorting methods. Since 
+  - only one step differs, it made sense to use the Factory method.
 
 Design Decisions
+- Overall Function
+  - The program starts with the Processor class (implementing IProcessor) taking in
+  - file paths and parsing data from these files to create Cards. It uses the ICardFactory
+  - to offload creation logic, and adds the resulting card to the newly made Repository,
+  - returning the Repository when done. The Card class contains the Color enum, and the 
+  - CreatureCard subclass contains the Stats struct. After obtaining the Repository, the
+  - main program prompts the user for filter data. The main program prompts for a sorting type,
+  - and then creates a FilterSortTemplate object of the according type and calls FilterSort(),
+  - passing in the filters given by the user. It returns a filtered and sorted list, which the
+  - main program then displays. Lastly, the user can Add or Remove from the Deck created in the
+  - main program, which holds a List of Cards and totals their prices.
+- Card Types as Subclasses
+  - Instead of adding card types as enums, as done with colors, this program
+  - has classes for each card type. This allows for easier extension as to add
+  - a new card type, the programmer only has to add a new class. They do, however
+  - also have to add this logic to the Processor class. But even if the processor
+  - class is unaltered, it does not break the program as it defaults to NonCreaturePerm
+  - if type is not found.
+- Repository Vs. Processor
+  - The processor and repository are seperated into different classes to follow the
+  - Single Responsibility Principle. Rather than the Processor creating, storing, and
+  - searching the master list of cards - these tasks are divided. It is the processor's
+  - responsibility to create the cards, while it is repository's responsibility to
+  - store and search for cards.
+- Abstractions
+  - The main Card class is abstract to prevent an untyped card from being created, and
+  - to ensure every class that depends on the Card depends on an abstraction rather than 
+  - a concrete class. A similar logic applies to the FilterSortTemplate, ensuring a class
+  - with no specific sorting method is never created, and allows for dependencies on the 
+  - abstract superclass. ICardFactory, IRepository, and IProcessor are all abstract for
+  - this same rationale - so other classes can depend on abstractions.
