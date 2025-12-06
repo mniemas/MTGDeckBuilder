@@ -1,0 +1,16 @@
+﻿namespace MTGDeckBuilder;
+
+public class NonPermanentCard : NonCreatureCard
+{
+    public NonPermanentCard() : base()
+    {
+    }
+    public NonPermanentCard(string name, string uuid, double price, int convertManaCost, string manaCost, List<Color> colorIdentity, string text, string type) : base(name, uuid, price,  convertManaCost, manaCost, colorIdentity, text, type)
+    {
+    }
+    
+    public override string ToString()
+    {
+        return base.ToString() + "\nNon-Permanent";
+    }
+}
