@@ -10,7 +10,7 @@ class Program
         
         Deck deck = Deck.GetInstance();
         
-        Processor p;
+        IProcessor p;
         while (noFiles)
         {
             Console.Write("Please enter the full file path for the card data: ");

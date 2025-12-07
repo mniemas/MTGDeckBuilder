@@ -162,7 +162,7 @@ Design Decisions
   - responsibility to create the cards, while it is repository's responsibility to
   - store and search for cards.
 - Abstractions
-  - The main Card class is abstract to prevent an untyped card from being created, and
+  - The main Card class is abstract to prevent an untyped card from being created, and 
   - to ensure every class that depends on the Card depends on an abstraction rather than 
   - a concrete class. A similar logic applies to the FilterSortTemplate, ensuring a class
   - with no specific sorting method is never created, and allows for dependencies on the 
